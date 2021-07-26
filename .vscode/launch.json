@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "openbi Launch",
+            "type": "clr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "ibssolution.bioxRepository.exe",
+            "cwd": "C:\\OPENBI"
+        },
+        {
+            "name": "openbi Attach",
+            "type": "clr",
+            "request": "attach",
+            "processName": "ibssolution.bioxRepository.exe"
+        }
+    ]
+}
