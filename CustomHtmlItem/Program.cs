@@ -86,7 +86,7 @@ namespace CustomHtmlItemExample
             return replacements;
         }
 
-        // HTML tag name which will instantiate a new instance of this class when found the HTML
+        // Unique HTML tag name which will instantiate a new instance of this class when found the HTML
         public override string GetTagName()
         {
             return "custom:htmlitem";

@@ -19,3 +19,9 @@ Related blog post: https://openbi.info/blog/open-bi-server-custom-http-handler-p
 Extend the open bi CMS with custom HTML items.
 
 Related blog post: https://openbi.info/blog/open-bi-server-custom-htmlitem-plugin
+
+## [CustomBatchJobHandler](CustomBatchJobHandler)
+
+Extend the open bi server with custom batch job handler.
+
+Related blog post: https://openbi.info/blog/open-bi-server-custom-batch-job-handler-plugin

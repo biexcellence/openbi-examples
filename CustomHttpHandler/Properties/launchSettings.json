@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ConsoleApp2": {
+    "CustomHttpHandlerExample": {
       "commandName": "Executable",
       "executablePath": "C:\\OPENBI\\ibssolution.bioxRepository.exe",
       "workingDirectory": "C:\\OPENBI\\"
