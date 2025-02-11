@@ -36,7 +36,7 @@ namespace CustomHtmlItemExample
             // Check if user is authentificated
             if (cms.HttpContext.User.Identity.IsAuthenticated)
             {
-                template = template.Replace("%USERNAME%", cms.OpenBiRequest.User.Username);
+                template = template.Replace("%USERNAME%", cms.Session.User.Username);
                 template = template.Replace("%USERNAME%", cms.HttpContext.User.Identity.Name); // same as above
             }
 
@@ -63,7 +63,7 @@ namespace CustomHtmlItemExample
                 // Check if user is authentificated
                 if (cms.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    await cms.HttpContext.Response.WriteAsync($"<h1>Username: {cms.OpenBiRequest.User.Username}</h1>");
+                    await cms.HttpContext.Response.WriteAsync($"<h1>Username: {cms.Session.User.Username}</h1>");
                     await cms.HttpContext.Response.WriteAsync($"<h1>Username: {cms.HttpContext.User.Identity.Name}</h1>"); // same as above
                 }
 
@@ -81,8 +81,8 @@ namespace CustomHtmlItemExample
         protected override HtmlItemReplacementParameterCollection getReplacementParameters()
         {
             var replacements = new HtmlItemReplacementParameterCollection();
-            replacements.Add(new HtmlItemReplacementParameter("%USERNAME%", "Username"));
-            replacements.Add(new HtmlItemReplacementParameter("%LICENSE_NAME%", "License Name"));
+            replacements.Add(new HtmlItemReplacementParameter("data-template", "%USERNAME%", "Username"));
+            replacements.Add(new HtmlItemReplacementParameter("data-template", "%LICENSE_NAME%", "License Name"));
             return replacements;
         }
 

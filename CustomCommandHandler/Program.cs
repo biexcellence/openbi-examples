@@ -1,12 +1,12 @@
 using BiExcellence.OpenBi.Server.License.Abstractions;
 using Ibssolution.biox.Repositoryserver;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CustomCommandHandlerExample
 {
-    public class CustomCommandHandler : IAsyncRequestHandler
+    public class CustomCommandHandler : ICommandApiHandler
     {
         private readonly ILicense _license;
 
@@ -16,7 +16,7 @@ namespace CustomCommandHandlerExample
             _license = license;
         }
 
-        public async Task<bool> Process_Command(JObject responseObj, sxRequest request, openBiMobileRequest session, CancellationToken cancellationToken)
+        public async Task<bool> ProcessCommandAsync(JsonObject responseObj, sxRequest request, OpenBiSession session, CancellationToken cancellationToken)
         {
             // Check command name
             if (request.Command == "MY_CUSTOM_COMMAND")
