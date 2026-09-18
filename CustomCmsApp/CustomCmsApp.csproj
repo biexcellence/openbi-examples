@@ -9,20 +9,11 @@
 
   <!-- References to open bi server -->
   <ItemGroup>
-    <Reference Include="BiExcellence.OpenBi.Server.BatchJob.Abstractions">
-      <HintPath>C:\OPENBI\BiExcellence.OpenBi.Server.BatchJob.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="BiExcellence.OpenBi.Server.Database.Models">
-      <HintPath>C:\OPENBI\BiExcellence.OpenBi.Server.Database.Models.dll</HintPath>
-    </Reference>
     <Reference Include="BiExcellence.OpenBi.Server.License.Abstractions">
       <HintPath>C:\OPENBI\BiExcellence.OpenBi.Server.License.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="ibssolution.bioxRepository">
       <HintPath>C:\OPENBI\ibssolution.bioxRepository.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
-      <HintPath>C:\OPENBI\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,48 +1,57 @@
-﻿using BiExcellence.OpenBi.Server.License.Abstractions;
-using Ibssolution.biox.Repositoryserver;
+using BiExcellence.OpenBi.Server.BatchJob.Abstractions;
+using BiExcellence.OpenBi.Server.License.Abstractions;
 using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace CustomBatchJobHandlerExample
+namespace CustomBatchJobHandlerExample;
+
+// The unique code and the description of the job type, both are shown in the Configurator
+[BatchJobHandler("CUSTOMBATCHJOBHANDLER", "My Custom Batch Job Handler")]
+// The parameters of the job type
+[BatchJobHandlerParameter("TEXT", "Custom Text", "default value")]
+public sealed class CustomBatchJobHandler : BatchJobHandler
 {
-    public class CustomBatchJobHandler : BatchHandlerBase
+    private readonly ILicense _license;
+
+    // Services are injected through the constructor
+    public CustomBatchJobHandler(ILicense license)
     {
-        private readonly ILicense _license;
+        _license = license;
+    }
 
-        // Get ILicense from DI
-        public CustomBatchJobHandler(ILicense license)
+    public override async Task RunAsync(IBatchJobHandlerRunContext context, CancellationToken cancellationToken)
+    {
+        // Everything which is logged into context.Logger becomes part of the job log
+        context.Logger.LogInformation("Job: {JobName} ({JobId})", context.Job.Name, context.Job.Id);
+        context.Logger.LogInformation("User: {Username}", context.User.Identity?.Name);
+        context.Logger.LogInformation("License: {LicenseName}", _license.Name);
+
+        // Read a parameter of the job
+        if (context.Parameters.TryGetValue("TEXT", out var text))
         {
-            _license = license;
+            context.Logger.LogInformation("Text: {Text}", text);
         }
 
-        public override async Task Run(BatchJob job, CancellationToken cancellationToken)
+        // Long running work has to observe the CancellationToken so the job can be canceled
+        for (var i = 0; i < 5; i++)
         {
-            // Get text parameter
-            job.Parameters.TryGetValue("text", out var text);
+            cancellationToken.ThrowIfCancellationRequested();
 
-            // Log values
-            job.LogWriter.LogDebug($"Text: {text}");
-            job.LogWriter.LogInformation($"User: {job.User.Username}");
-            job.LogWriter.LogWarning($"License Name: {_license.Name}");
+            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+
+            context.Logger.LogDebug("Step {Step} of 5", i + 1);
         }
 
-        // Document possible parameters
-        public override void AddBatchParametersToCollection(BatchParameterCollection collection)
-        {
-            collection.Add("text", new BatchParameter("text", eBatchParametertype.Text, "Custom Text"));
-        }
+        // An unhandled exception marks the job as failed
+    }
 
-        // Unique Batch Job Handler code
-        public override string HandlerCode()
+    // Optional: run the job on runtimes which the periodic settings of a job cannot express,
+    // here on the last day of the month
+    public override IEnumerable<DateTimeOffset> GetCustomRuntimes(IBatchJobHandlerCheckRuntimeContext context, DateTimeOffset now)
+    {
+        var lastDayOfMonth = new DateTimeOffset(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 2, 0, 0, now.Offset);
+        if (lastDayOfMonth > now)
         {
-            return "CUSTOMBATCHJOBHANDLER";
-        }
-
-        // Document Batch Job Handler
-        public override string HandlerName()
-        {
-            return "My Custom Batch Job Handler";
+            yield return lastDayOfMonth;
         }
     }
 }

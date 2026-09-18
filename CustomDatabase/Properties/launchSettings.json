@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CustomDatabaseExample": {
+      "commandName": "Executable",
+      "executablePath": "C:\\OPENBI\\ibssolution.bioxRepository.exe",
+      "workingDirectory": "C:\\OPENBI\\"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="CustomBackgroundService/CustomBackgroundService.csproj" />
+  <Project Path="CustomBatchJobHandler/CustomBatchJobHandler.csproj" />
+  <Project Path="CustomCmsApp/CustomCmsApp.csproj" />
+  <Project Path="CustomCommandHandler/CustomCommandHandler.csproj" />
+  <Project Path="CustomComponent/CustomComponent.csproj" />
+  <Project Path="CustomDatabase/CustomDatabase.csproj" />
+  <Project Path="CustomHtmlItem/CustomHtmlItem.csproj" />
+  <Project Path="CustomHttpHandler/CustomHttpHandler.csproj" />
+  <Project Path="CustomPlugin/CustomPlugin.csproj" />
+</Solution>
